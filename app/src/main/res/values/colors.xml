@@ -7,4 +7,7 @@
     <color name="backgroundColor">#FEF1E0</color>
     <color name="ageTextBackgroundColor">#C846DCE0</color>
     <color name="ageTextColor">#FFFFFF</color>
+    <color name="buttonBackgroundColor">#FFFFFF</color>
+    <color name="buttonTextColor">#808080</color>
+    <color name="secondaryTextColor">#808080</color>
 </resources>
