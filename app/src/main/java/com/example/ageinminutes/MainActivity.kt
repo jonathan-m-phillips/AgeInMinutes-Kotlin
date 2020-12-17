@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -32,8 +33,24 @@ class MainActivity : AppCompatActivity() {
         // opens popup for date picker
         DatePickerDialog(this,
             DatePickerDialog.OnDateSetListener {
-                    view, year, month, dayOfMonth ->
-                Toast.makeText(this, "Date Picker works", Toast.LENGTH_LONG).show()
+                    view, selectedYear, selectedMonth, selectedDayOfMonth ->
+                Toast.makeText(this,
+                    "The chosen year is $selectedYear, the month is $selectedMonth, and the day is $selectedDayOfMonth",
+                    Toast.LENGTH_LONG).show()
+
+                // adding 1 to month because months start at 0 in Kotlin
+                val selectedDate = "$selectedDayOfMonth/${selectedMonth+1}/$selectedYear"
+
+                // setting the text to the ID of tvSelectedDate
+                tvSelectedDate.setText(selectedDate)
+
+                // SimpleDateFormat class to give date in string
+                val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
+
+                // giving theDate type Date - converted from string to Date object format
+                val theDate = sdf.parse(selectedDate)
+
+                val selectedDateInMinutes = theDate.time / 60000
 
             }
             ,year
