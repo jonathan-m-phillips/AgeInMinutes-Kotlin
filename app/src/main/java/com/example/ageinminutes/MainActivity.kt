@@ -31,12 +31,13 @@ class MainActivity : AppCompatActivity() {
 
 
         // opens popup for date picker
-        DatePickerDialog(this,
+        val dpd = DatePickerDialog(this,
             DatePickerDialog.OnDateSetListener {
                     view, selectedYear, selectedMonth, selectedDayOfMonth ->
-                Toast.makeText(this,
-                    "The chosen year is $selectedYear, the month is $selectedMonth, and the day is $selectedDayOfMonth",
-                    Toast.LENGTH_LONG).show()
+
+                // Toast.makeText(this,
+                    // "The chosen year is $selectedYear, the month is $selectedMonth, and the day is $selectedDayOfMonth",
+                    // Toast.LENGTH_LONG).show()
 
                 // adding 1 to month because months start at 0 in Kotlin
                 val selectedDate = "$selectedDayOfMonth/${selectedMonth+1}/$selectedYear"
@@ -50,11 +51,22 @@ class MainActivity : AppCompatActivity() {
                 // giving theDate type Date - converted from string to Date object format
                 val theDate = sdf.parse(selectedDate)
 
-                val selectedDateInMinutes = theDate.time / 60000
+                val selectedDateInMinutes = theDate!!.time / 60000
+
+                val currentDate = sdf.parse(sdf.format(System.currentTimeMillis()))
+
+                val currentDateToMinutes = currentDate!!.time / 60000
+
+                val differenceInMinutes = currentDateToMinutes - selectedDateInMinutes
+
+                tvSelectedDateInMinutes.setText(differenceInMinutes.toString())
 
             }
             ,year
             ,month
-            ,day).show()
+            ,day)
+
+        dpd.datePicker.maxDate = Date().time - 86400000
+        dpd.show()
     }
 }
